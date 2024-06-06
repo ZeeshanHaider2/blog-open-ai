@@ -2,12 +2,20 @@ import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../../components/AppLayout";
 import { ObjectId } from "mongodb";
 import clientPromise from "../../lib/mongodb";
-
+import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 export default function Post(props) {
   console.log(props);
   return (
-    <div>
-      <h1>I am a post</h1>
+    <div className="overflow-auto h-full">
+      <div className="max-w-screen-sm mx-auto">
+        <div className="text-sm font-bold mt-6 p-2 bg-stone-200 rounded-sm">
+          Blog
+        </div>
+        <Markdown rehypePlugins={[rehypeRaw]}>
+          {props.postContent || ""}
+        </Markdown>
+      </div>
     </div>
   );
 }
