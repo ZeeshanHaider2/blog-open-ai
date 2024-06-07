@@ -6,6 +6,8 @@ import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
+import { getAppProps } from "../../utils/getAppProps";
+//import PostsContext from "../../context/postsContext";
 export default function Post(props) {
   console.log(props);
   return (
@@ -45,6 +47,7 @@ Post.getLayout = function getLayout(page, pageProps) {
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
+    const props = await getAppProps(ctx);
     const userSession = await getSession(ctx.req, ctx.res);
     const client = await clientPromise;
     const db = client.db("BlogStandard");
@@ -69,6 +72,8 @@ export const getServerSideProps = withPageAuthRequired({
         title: post.title,
         metaDescription: post.metaDescription,
         keywords: post.keywords,
+        //postCreated: post.created.toString(),
+        ...props,
       },
     };
   },
