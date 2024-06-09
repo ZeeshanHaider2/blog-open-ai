@@ -3,7 +3,7 @@ import { AppLayout } from "../../components/AppLayout";
 import { ObjectId } from "mongodb";
 import clientPromise from "../../lib/mongodb";
 import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
+//import rehypeRaw from "rehype-raw";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
 import { getAppProps } from "../../utils/getAppProps";
@@ -55,9 +55,7 @@ export default function Post(props) {
         <div className="text-sm font-bold mt-6 p-2 bg-stone-200 rounded-sm">
           Blog
         </div>
-        <Markdown rehypePlugins={[rehypeRaw]}>
-          {props.postContent || ""}
-        </Markdown>
+        <Markdown>{props.postContent || ""}</Markdown>
         <div className="my-4">
           {!showDeleteConfirm && (
             <button
