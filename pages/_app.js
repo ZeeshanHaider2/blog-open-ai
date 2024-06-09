@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { DM_Sans, DM_Serif_Display } from "@next/font/google";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { PostsProvider } from "../context/postsContext";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 
@@ -21,11 +22,13 @@ function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
   return (
     <UserProvider>
-      <main
-        className={`${dmSans.variable} ${dmSerifDisplay.variable} font-body`}
-      >
-        {getLayout(<Component {...pageProps} />, pageProps)}
-      </main>
+      <PostsProvider>
+        <main
+          className={`${dmSans.variable} ${dmSerifDisplay.variable} font-body`}
+        >
+          {getLayout(<Component {...pageProps} />, pageProps)}
+        </main>
+      </PostsProvider>
     </UserProvider>
   );
 }
